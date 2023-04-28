@@ -3,6 +3,9 @@ package com.example.demo.pkservice;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.*;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.pkmodel.pkModel;
@@ -29,6 +32,25 @@ public class pkservice {
 	public void deleteInfo(int id)
 	{
 		prepo.deleteById(id);
+	}
+	public List<pkModel> sortDesc(String pname)
+	{
+		return prepo.findAll(Sort.by(pname).ascending());
+	}
+	public List<pkModel> sortDesc1(String pname)
+	{
+		return prepo.findAll(Sort.by(pname).descending());
+	}
+	public List<pkModel> paginationData(int pageno,int pagesize)
+	{
+		Page<pkModel> p=prepo.findAll(PageRequest.of(pageno, pagesize));
+		return p.getContent();
+	}
+	public List<pkModel> paginationAndSorting(int pageNu,int pageSize,String pname)
+	{
+		Page<pkModel> p=prepo.findAll(PageRequest.of(pageNu, pageSize,Sort.by(pname).ascending()));
+		return p.getContent();
+		
 	}
 }
 	
