@@ -21,8 +21,6 @@ public class pkcontroll {
 	
 	@Autowired
 	public pkservice pserve;
-	@Autowired
-	public pkrepo prepo1;
 	
 	@PostMapping("/savepk")
 	public pkModel addDetails(@RequestBody pkModel pa)
@@ -47,7 +45,7 @@ public class pkcontroll {
 		return "Player Id "+playerId+" Deleted";
 	}
 	@DeleteMapping("/deleteBYReq")
-	public String deleteByRequestPara(@RequestParam("pid")int playerId)
+	public String deleteByRequestPara(@RequestParam int playerId)
 	{
 		pserve.deleteInfo(playerId);
 		return "Player ID " +playerId+" is deleted";
@@ -73,20 +71,6 @@ public class pkcontroll {
 	{
 		return pserve.paginationAndSorting(nu, siz, name);
 	}
-	@GetMapping("/getbyq")
-	public List<pkModel> getbyQuery()
-	{
-		return prepo1.getAllvalue();
-	}
-	@GetMapping("/getbyname/{id}")
-	public List<pkModel> getbyQuery(@RequestParam("id") int id)
-	{
-		return prepo1.getbyname(id);
-	}
-	@DeleteMapping("/deletebyq/{id}")
-	public String deletebyQuery1(@PathVariable("id") int id)
-	{
-		 prepo1.delete(id);
-		 return id+" Deleted";
-	}
+	
+	
 }
